@@ -1,21 +1,36 @@
 "use strict";
-// console.log(5 ** 2 * 3 + 5);
 
-// //solve for a string to a number
+// let num1 = 0;
+// let num2 = 0;
+let operationSelected = "";
 
-// const typeW = 5;
-// const typeU = "*";
+function operation(num1, num2, operationSelected) {
+  //Wrap into a validator for '' or NaN - guard - return;
+  if (isNaN(num1) || num1 === "" || isNaN(num2) || num2 == "") return; //FIXME
+  if (operationSelected === "+") {
+    return num1 + num2;
+  } else if (operationSelected === "-") {
+    return num1 - num2;
+  } else if (operationSelected === "*") {
+    return num1 * num2;
+  } else if (operationSelected === "/") {
+    if (num2 === 0) {
+      console.log("Error cannot divide by 0");
+      return;
+    } else {
+      return num1 / num2;
+    }
+  }
+}
 
-// const typeE = 3;
+//listen for numbers and operator selected
+// computation
+// the display
+// the memory
+console.log(operation(7, 2, "+"));
+console.log(operation(7, 2, "-"));
+console.log(operation(7, 2, "*"));
+console.log(operation(7, 2, "/"));
+console.log(operation(7, 0, "/")); // deal with dividing by 0
 
-// const numArr = ["5", "*", "3"];
-
-// const newArr = Number([...numArr]);
-// console.log(newArr);
-
-// function seeArg(...args) {
-//   console.log(args);
-//   return args;
-// }
-
-// seeArg(1, 2, 3, 4, 5, 6, 7, 8);
+console.log(operation("a", 2, "+")); //FIXME

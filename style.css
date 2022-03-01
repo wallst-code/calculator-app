@@ -1,8 +1,10 @@
 .grid-container {
-  border-style: solid;
   background-color: black;
   width: 300px;
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "dis dis dis dis" "AC Del div" "seven eight nine multiply" "four five six sub" "one two three plus" "zero zero dot equal";
 }
 
 .display {

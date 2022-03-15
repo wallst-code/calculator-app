@@ -1,44 +1,44 @@
 "use strict";
 
-// let num1 = 0;
-// let num2 = 0;
 let operationSelected = "";
 
-function operation(num1, num2, operationSelected) {
-  //Wrap into a validator for '' or NaN - guard - return;
-  if (isNaN(num1) || num1 === "" || isNaN(num2) || num2 == "") return undefined; //FIXME
-  if (operationSelected === "+") {
-    return num1 + num2;
-  } else if (operationSelected === "-") {
-    return num1 - num2;
-  } else if (operationSelected === "*") {
-    return num1 * num2;
-  } else if (operationSelected === "/") {
-    if (num2 === 0) {
-      console.log("Error cannot divide by 0");
-      return undefined;
-    } else {
-      return num1 / num2;
+let result = 0;
+let operation = [];
+
+function inputValidator(num) {
+  if (isNaN(num) || num === "" || typeof num !== "number") {
+    console.error(`Error ${num} is the wrong input type`);
+    return undefined;
+  } else return true;
+}
+
+function continousCalculations() {
+  //needing to switch from 2 numbers to result operation and new number, until clear is selected.
+}
+
+function calcFunction(num1, num2, operationSelected) {
+  if (inputValidator(num1) && inputValidator(num2)) {
+    operation = [num1, num2, operationSelected];
+
+    if (operationSelected === "+") {
+      result = num1 + num2;
+      return result;
+    } else if (operationSelected === "-") {
+      result = num1 - num2;
+      return result;
+    } else if (operationSelected === "*") {
+      result = num1 * num2;
+      return result;
+    } else if (operationSelected === "/") {
+      if (num2 === 0) {
+        console.error("Error cannot divide by 0");
+        return undefined;
+      } else {
+        result = num1 / num2;
+        return result;
+      }
     }
   }
 }
-
-//listen for numbers and operator selected
-// computation
-// the display
-// the memory
-// the validator - if it returns false (not valid) then it will print.
-// single responsibility
-console.log(operation(7, 2, "+"));
-console.log(operation(7, 2, "-"));
-console.log(operation(7, 2, "*"));
-console.log(operation(7, 2, "/"));
-console.log(operation(7, 0, "/")); // deal with dividing by 0
-
-console.log(operation("a", 2, "+")); //FIXME
-
-let y = "a";
-
-if (typeof y !== "number") {
-  console.log(`"${y}" is not a number`);
-}
+console.log(calcFunction(12, 1, "/"));
+console.log(operation);

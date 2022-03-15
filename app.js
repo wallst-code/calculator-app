@@ -1,44 +1,100 @@
 "use strict";
 
-let operationSelected = "";
-
 let result = 0;
-let operation = [];
+let operation = []; // inputs and results - to make a tape and memory
+let calcShouldProceed;
+let numberOfArgs;
 
-function inputValidator(num) {
-  if (isNaN(num) || num === "" || typeof num !== "number") {
-    console.error(`Error ${num} is the wrong input type`);
-    return undefined;
-  } else return true;
+function inputValidator2(num1, num2, operator) {
+  let isNum1Valid =
+    isNaN(num1) ||
+    num1 === "" ||
+    typeof num1 !== "number" ||
+    typeof num1 === "string"
+      ? false
+      : true;
+
+  let isNum2Valid =
+    isNaN(num2) || num2 === "" || typeof num2 !== "number" ? false : true;
+
+  let is2ndArgValid =
+    (isNaN(num2) && num2 === "+") ||
+    num2 === "-" ||
+    num2 === "*" ||
+    num2 === "/"
+      ? true
+      : false;
+
+  let isOperatorValid =
+    (isNaN(operator) && operator === "+") ||
+    operator === "-" ||
+    operator === "*" ||
+    operator === "/"
+      ? true
+      : false;
+
+  if ((!isNum2Valid && is2ndArgValid) || operator === undefined) {
+    numberOfArgs = 2;
+  } else numberOfArgs = 3;
+
+  // Should Calculation Proceed?
+  if (isNum1Valid && (isNum2Valid || is2ndArgValid)) {
+    calcShouldProceed = true;
+  } else {
+    console.error("Input Type Error");
+    calcShouldProceed = false;
+  }
 }
 
-function continousCalculations() {
-  //needing to switch from 2 numbers to result operation and new number, until clear is selected.
+function calcController(num1, num2, operationSelected) {
+  inputValidator2(num1, num2, operationSelected);
+  if (calcShouldProceed) {
+    if (numberOfArgs === 2) {
+      let inputData = [num1, num2, operationSelected];
+      let newNum, operator, dump;
+      [newNum, operator, ...dump] = inputData;
+
+      return calcFunction(result, newNum, operator);
+    } else {
+      return calcFunction(num1, num2, operationSelected);
+    }
+  } else {
+    return undefined;
+  }
 }
 
 function calcFunction(num1, num2, operationSelected) {
-  if (inputValidator(num1) && inputValidator(num2)) {
-    operation = [num1, num2, operationSelected];
-
-    if (operationSelected === "+") {
-      result = num1 + num2;
+  if (operationSelected === "+") {
+    result = num1 + num2;
+    return result;
+  } else if (operationSelected === "-") {
+    result = num1 - num2;
+    return result;
+  } else if (operationSelected === "*") {
+    result = num1 * num2;
+    return result;
+  } else if (operationSelected === "/") {
+    if (num2 === 0) {
+      console.error("Error cannot divide by 0");
+      result = undefined;
       return result;
-    } else if (operationSelected === "-") {
-      result = num1 - num2;
+    } else {
+      result = num1 / num2;
       return result;
-    } else if (operationSelected === "*") {
-      result = num1 * num2;
-      return result;
-    } else if (operationSelected === "/") {
-      if (num2 === 0) {
-        console.error("Error cannot divide by 0");
-        return undefined;
-      } else {
-        result = num1 / num2;
-        return result;
-      }
     }
   }
 }
-console.log(calcFunction(12, 1, "/"));
-console.log(operation);
+console.log(calcController(2, "*"));
+console.log(calcController(2, "-"));
+console.log(calcController(12, 12, "-"));
+console.log(calcController(2, "*"));
+console.log(calcController(2, "+"));
+console.log(calcController(2, "+"));
+console.log(calcController(12, 12, "+"));
+console.log(calcController("a", 2, "+"));
+//FIXME;
+console.log(calcController("a", "+"));
+//FIXME;
+// console.log(calcController(12, 0, "/"));
+console.log(inputValidator2("a", 2, "+"));
+console.log(calcShouldProceed);

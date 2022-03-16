@@ -4,6 +4,41 @@ let result = 0;
 let operation = []; // inputs and results - to make a tape and memory
 let calcShouldProceed;
 let numberOfArgs;
+let num1;
+let num2;
+let operator;
+
+const numberButtons = document.getElementsByClassName("number-btn");
+for (let i = 0; i < numberButtons.length; i++) {
+  const numberButton = numberButtons[i];
+  numberButton.addEventListener("click", function (e) {
+    console.log(`${e.target.textContent} number pressed`);
+    if (result === 0 || result === undefined) {
+      num1 = Number.parseInt(e.target.textContent);
+      operation.push(num1);
+    } else {
+      num1 = result;
+    }
+    console.log(operation);
+  });
+}
+
+const operatorBtns = document.getElementsByClassName("operation-btn");
+for (let i = 0; i < operatorBtns.length; i++) {
+  const operatorBtn = operatorBtns[i];
+  operatorBtn.addEventListener("click", function (e) {
+    console.log(`${e.target.textContent} operator button pressed`);
+  });
+}
+
+const decimalBtn = document.getElementById("btn-id-decimal");
+decimalBtn.addEventListener("click", function (e) {
+  console.log(`${e.target.textContent} decimal button pressed`);
+});
+
+////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////
 
 function inputValidator2(num1, num2, operator) {
   let isNum1Valid =
@@ -51,8 +86,8 @@ function calcController(num1, num2, operationSelected) {
   if (calcShouldProceed) {
     if (numberOfArgs === 2) {
       let inputData = [num1, num2, operationSelected];
-      let newNum, operator, dump;
-      [newNum, operator, ...dump] = inputData;
+      let newNum, operator, _dump;
+      [newNum, operator, ..._dump] = inputData;
 
       return calcFunction(result, newNum, operator);
     } else {

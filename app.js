@@ -4,7 +4,7 @@ let result = 0;
 let operation = []; // inputs and results - to make a tape and memory
 let calcShouldProceed;
 let numberOfArgs;
-let num1;
+let number;
 let num2;
 let operator;
 
@@ -14,10 +14,10 @@ for (let i = 0; i < numberButtons.length; i++) {
   numberButton.addEventListener("click", function (e) {
     console.log(`${e.target.textContent} number pressed`);
     if (result === 0 || result === undefined) {
-      num1 = Number.parseInt(e.target.textContent);
-      operation.push(num1);
+      number = Number.parseInt(e.target.textContent);
+      operation.push(number);
     } else {
-      num1 = result;
+      number = result;
     }
     console.log(operation);
   });

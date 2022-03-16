@@ -5,6 +5,7 @@ let stringNumber = [];
 let number;
 let operator;
 let priorOperation = [];
+let output;
 
 // I should be able to loop all buttons and pull out the values with conditions.
 const buttons = document.getElementsByClassName("btn");
@@ -37,8 +38,9 @@ for (let i = 0; i < numberButtons.length; i++) {
       //only allow 3 entries into operation[]
       priorOperation.push(operation);
       console.log(operation[0], operation[1], operation[2]);
-      let output = calcFunction(operation[0], operation[1], operation[2]);
+      output = calcFunction(operation[0], operation[1], operation[2]);
       operation = [];
+      //then update operation[0] with result...
       console.log(result);
       console.log(output);
       console.log(priorOperation);

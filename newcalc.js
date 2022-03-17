@@ -30,7 +30,7 @@ for (let i = 0; i < numberButtons.length; i++) {
         operand1 = Number(stringNumber);
         stringNumber = [];
         console.log(operand1);
-      } else if (operator !== undefined) {
+      } else if (operator !== undefined && operand2 === undefined) {
         // takes the next stringNumber and converts to number for operand2 and clears it.
         operand2 = Number(stringNumber);
         stringNumber = [];
@@ -48,7 +48,22 @@ for (let i = 0; i < numberButtons.length; i++) {
         updateMemory(operand1, operator, operand2); //FIXME
         calcFunction(operand1, operator, operand2);
         displayResult(result);
-        console.log(memory);
+      } else if (result !== undefined && operand2 !== undefined) {
+        operand1 = result;
+        operator = operator;
+        operand2 = Number(stringNumber);
+        stringNumber = [];
+        console.log(
+          "Operand1 = ",
+          operand1,
+          "operator = ",
+          operator,
+          " Operand2 = ",
+          operand2
+        );
+        updateMemory(operand1, operator, operand2); //FIXME
+        calcFunction(operand1, operator, operand2);
+        displayResult(result);
       }
       // I need to make operand1 = result
     }
@@ -61,7 +76,7 @@ function displayResult(result) {
 
 function updateMemory(operand1, operator, operand2) {
   memory.push({ operand1, operator, operand2 }); //FIXME
-  console.log(memory);
+  console.log(memory, "memory");
 }
 
 // console.log(result);

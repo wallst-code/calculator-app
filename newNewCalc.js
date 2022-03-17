@@ -64,19 +64,19 @@ btnZero.addEventListener('click', function (e) {
 });
 
 btnAdd.addEventListener('click', function (e) {
-  calcController(e);
+  operatorController(e);
 });
 
 btnSubtract.addEventListener('click', function (e) {
-  calcController(e);
+  operatorController(e);
 });
 
 btnMultiply.addEventListener('click', function (e) {
-  calcController(e);
+  operatorController(e);
 });
 
 btnDivide.addEventListener('click', function (e) {
-  calcController(e);
+  operatorController(e);
 });
 
 btnClear.addEventListener('click', function (e) {
@@ -88,7 +88,7 @@ btnDecimal.addEventListener('click', function (e) {
 });
 
 btnEqual.addEventListener('click', function (e) {
-  calcController(e);
+  operatorController(e);
 });
 
 function operandBuilder(e) {
@@ -110,7 +110,7 @@ function operandRouter() {
     return (operand1 = result);
 }
 
-function calcController(e) {
+function operatorController(e) {
   console.log(operand1);
   console.log(operator);
   console.log(operand2);

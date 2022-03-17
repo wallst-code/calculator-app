@@ -1,8 +1,7 @@
 "use strict";
-let result = 0;
-let operation = []; // inputs and results - to make a tape and memory
+let result;
+let memory = []; // inputs and results - to make a tape and memory
 let stringNumber = [];
-let number;
 let operand1;
 let operand2;
 let operator;
@@ -18,11 +17,51 @@ for (let i = 0; i < numberButtons.length; i++) {
   button.addEventListener("click", function (e) {
     console.log(`${e.target.textContent} number pressed`);
 
+    // Operand Builder as a string then converts later
     if (button.classList.contains("number-btn")) {
-      operand1 = Number(e.target.textContent);
-      console.log(operand1);
+      stringNumber += e.target.textContent;
+      console.log("stringNumber = ", stringNumber);
+    }
+
+    // stringNumber converts to number as operand1 and clears stringNumber - creates oeprator
+    if (button.classList.contains("operation-btn")) {
+      if (operator === undefined && result === undefined) {
+        operator = e.target.textContent;
+        operand1 = Number(stringNumber);
+        stringNumber = [];
+        console.log(operand1);
+      } else if (operator !== undefined) {
+        // takes the next stringNumber and converts to number for operand2 and clears it.
+        operand2 = Number(stringNumber);
+        stringNumber = [];
+        // How do I trigger a calcFunction() on entry of operand2?
+        // I need to get operand1 to become results and have continuous calcs. FIXME
+
+        console.log(
+          "Operand1 = ",
+          operand1,
+          "operator = ",
+          operator,
+          " Operand2 = ",
+          operand2
+        );
+        updateMemory(operand1, operator, operand2); //FIXME
+        calcFunction(operand1, operator, operand2);
+        displayResult(result);
+        console.log(memory);
+      }
+      // I need to make operand1 = result
     }
   });
+}
+
+function displayResult(result) {
+  console.log("output = ", result);
+}
+
+function updateMemory(operand1, operator, operand2) {
+  memory.push({ operand1, operator, operand2 }); //FIXME
+  console.log(memory);
 }
 
 // console.log(result);
@@ -46,19 +85,23 @@ for (let i = 0; i < numberButtons.length; i++) {
 
 ////////////////////////////////////////////////////////////
 
-function calcFunction(num1, num2, operationSelected) {
+function calcFunction(num1, operationSelected, num2) {
   if (operationSelected === "+") {
-    return num1 + num2;
+    result = num1 + num2;
+    return result;
   } else if (operationSelected === "-") {
-    return num1 - num2;
-  } else if (operationSelected === "*") {
-    return num1 * num2;
+    result = num1 - num2;
+    return result;
+  } else if (operationSelected === "x") {
+    result = num1 * num2;
+    return result;
   } else if (operationSelected === "/") {
     if (num2 === 0) {
       console.error("Error cannot divide by 0");
       return undefined;
     } else {
-      return num1 / num2;
+      result = num1 / num2;
+      return result;
     }
   }
 }

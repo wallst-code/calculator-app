@@ -6,6 +6,8 @@ let operand1;
 let operand2;
 let operator;
 let operationsCounter = 0;
+let resetCalc = false;
+let runCalc = false;
 
 const buttons = document.getElementsByClassName('btn');
 const numberButtons = document.getElementsByClassName('btn');
@@ -93,27 +95,26 @@ function operandBuilder(e) {
   let str = e.target.textContent;
   stringNumber += str;
   str = '';
-  console.log('string number =', stringNumber);
+}
+
+function operandRouter() {
+  if (operand1 === undefined) operand1 = Number(stringNumber);
+
+  if (operand1 !== undefined && operand2 === undefined) {
+    runCalc = true;
+    operand2 = Number(stringNumber);
+    result = calcFunction(operand1, operator, operand2);
+  }
+
+  if (operand1 !== undefined && operand2 !== undefined && result !== undefined)
+    return (operand1 = result);
 }
 
 function calcController(e) {
-  console.log(' calc controller', e.target.textContent);
-  operator = e.target.textContent;
-  operationsCounter++;
-  console.log('counter is at', operationsCounter);
-
-  // if new calc - it may be easier to check the number of operators
-  if (operationsCounter === 1 && operand1 === undefined) {
-    console.log('new calc operation');
-    firstCalculation();
-  } else if (operationsCounter >= 2) {
-    console.log('cont calc - greater than 2');
-    continuedCalculations();
-  } else {
-    console.log('continuous calc');
-  }
-
-  // lots of if then logic here.
+  console.log(operand1);
+  console.log(operator);
+  console.log(operand2);
+  console.log(runCalc);
 }
 
 function decimalController(e) {
@@ -126,31 +127,10 @@ function clearCalculator(e) {
   // clear display and operands, operators
 }
 
-function calcMemory(something) {
-  console.log('memory');
-}
+function calcMemory(something) {}
 
-function firstCalculation() {
-  console.log('first calc function');
-  operand1 = Number(stringNumber);
-  stringNumber = [];
-  console.log('operand1 =', operand1);
-  console.log('stringNumber should be cleared from 1st Calc', stringNumber);
-}
-
-function continuedCalculations() {
-  console.log('cont calc function');
-  operand2 = Number(stringNumber);
-  stringNumber = [];
-  console.log('stringNumber Cleared in contCalc', stringNumber);
-  console.log('operand2 = ', operand2);
-  result = calcFunction(operand1, operator, operand2);
-  displayResult(result);
-}
-
-function displayResult(result) {
-  console.log('result display function');
-  console.log(result);
+function displayResult() {
+  console.log('result = ', result);
 }
 
 function calcFunction(num1, operator, num2) {
@@ -173,4 +153,5 @@ function calcFunction(num1, operator, num2) {
       return result;
     }
   }
+  displayResult();
 }

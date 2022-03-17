@@ -3,52 +3,33 @@ let result = 0;
 let operation = []; // inputs and results - to make a tape and memory
 let stringNumber = [];
 let number;
+let operand1;
+let operand2;
 let operator;
-let priorOperation = [];
-let output;
+// let priorOperation = [];
+// let output;
 
 // I should be able to loop all buttons and pull out the values with conditions.
 const buttons = document.getElementsByClassName("btn");
 const numberButtons = document.getElementsByClassName("btn");
+
 for (let i = 0; i < numberButtons.length; i++) {
   const button = buttons[i];
   button.addEventListener("click", function (e) {
     console.log(`${e.target.textContent} number pressed`);
 
-    // Number Listener
     if (button.classList.contains("number-btn")) {
-      // Leave as a string and convert later
-      stringNumber += e.target.textContent;
-      //
-    }
-    // Operators Listener
-    if (button.classList.contains("operation-btn")) {
-      number = Number.parseInt(stringNumber);
-      stringNumber = "";
-
-      operation.push(number);
-      operator = e.target.textContent;
-      operation.push(operator);
-    }
-
-    if (
-      button.classList.contains("equal-btn") ||
-      typeof operation[2] === "number"
-    ) {
-      //only allow 3 entries into operation[]
-      priorOperation.push(operation);
-      console.log(operation[0], operation[1], operation[2]);
-      output = calcFunction(operation[0], operation[2], operation[1]);
-      operation = [];
-      //then update operation[0] with result...
-      console.log(result);
-      console.log(output);
-      console.log(priorOperation);
+      operand1 = Number(e.target.textContent);
+      console.log(operand1);
     }
   });
 }
 
-// const operatorBtns = document.getElementsByClassName("operation-btn");
+// console.log(result);
+//       console.log(operand1);
+//       console.log(operand2);
+//       console.log(operator);
+
 // for (let i = 0; i < operatorBtns.length; i++) {
 //   const operatorBtn = operatorBtns[i];
 //   operatorBtn.addEventListener("click", function (e) {
